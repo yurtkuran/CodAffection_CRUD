@@ -1,0 +1,33 @@
+<div class="row mt-5">
+    <div class="col-md-10 m-auto">
+        <h3 class="mb-3"><a href="/employee" class="small mr-3"><i class="fas fa-user-plus"></i></a>Employee List</h3>
+        
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>City</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each employees}}
+                    <tr>
+                        <td>{{fullName}}</td>
+                        <td>{{email}}</td>
+                        <td>{{mobile}}</td>
+                        <td>{{city}}</td>
+                        <td>
+                            <a href="/employee/{{_id}}" class="mr-2"><i class="far fa-edit"></i></a>
+                            <a href="#"><i class="far fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+    </div>
+</div>
