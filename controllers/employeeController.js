@@ -33,6 +33,7 @@ router.get('/list', (req,res) => {
     });
 });
 
+// lookup employee in database
 router.get('/:id', (req, res) => {
     Employee.findById(req.params.id, (err, employee) => { 
         if (!err) {
@@ -44,6 +45,29 @@ router.get('/:id', (req, res) => {
      });
 })
 
+// delete employee
+router.delete('/:id', (req, res) => {
+    const _id = req.params.id;
+    console.log('ID to be removed: ' + _id);
+
+    Employee.findByIdAndDelete(_id, function (err) {
+        if (!err) {
+            console.log("Successful deletion");
+            res.sendStatus(200);
+        } else {
+            console.log('Error in employee delete :' + err);
+            res.sendStatus(500);
+        }
+
+
+
+        if (err) console.log(err);
+        
+    });
+
+});
+
+// add employee to database
 const insertRecord = (req, res) => {
     const { _id, fullName, email, mobile, city } = req.body;
     const newEmployee = new Employee({
@@ -72,12 +96,13 @@ const insertRecord = (req, res) => {
     });
 }
 
+// update existing employss
 const updateRecord = (req, res) => {
     const filter = { _id: req.body._id };
     const update =  req.body;
     Employee.findOneAndUpdate(filter, update, {new: true, runValidators: true}, (err, doc) => {
         if (!err) {
-            res.redirect('employee/list');
+            res.redirect('/employee/list');
         } else {
             // check for validation error
             if (err.name == 'ValidationError') {
